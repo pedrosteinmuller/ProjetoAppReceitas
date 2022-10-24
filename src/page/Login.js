@@ -28,32 +28,32 @@ function Login({ history }) {
     localStorage.setItem('user', JSON.stringify({
       email,
     }));
-    history.push('/Comidas');
+    history.push('/meals');
   };
 
   return (
     <>
       <p>teste_teste@gmail.com</p>
       <div>Login</div>
-      <form onSubmit={ loginSubmit }>
+      <form onSubmit={loginSubmit}>
         <input
           data-testid="email-input"
           type="email"
           name="email"
-          value={ email }
-          onChange={ handleEmail }
+          value={email}
+          onChange={handleEmail}
         />
         <input
           data-testid="password-input"
           type="password"
           name="password"
-          value={ password }
-          onChange={ handlePassword }
+          value={password}
+          onChange={handlePassword}
         />
         <button
           data-testid="login-submit-btn"
           type="submit"
-          disabled={ loginBtnDisabled }
+          disabled={loginBtnDisabled}
         >
           Enter
         </button>
