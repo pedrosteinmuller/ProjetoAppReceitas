@@ -32,22 +32,54 @@ describe('Testa tela de Login', () => {
     const passwordInput = screen.getByTestId(passwordText);
     const button = screen.getByText('Enter');
 
-    userEvent.type(emailInput, 'email@provider.com');
+    userEvent.type(emailInput, 'email@trybe.com');
     userEvent.type(passwordInput, '1234567');
     expect(button).toBeEnabled();
   });
 
-  test('Se, ao clicar no botão redireciona para o /Comidas', () => {
+  test('Se, ao clicar no botão redireciona para o /meals', () => {
     const { history } = renderWithRouter(<App />);
     const emailInput = screen.getByTestId(emailText);
     const passwordInput = screen.getByTestId(passwordText);
     const button = screen.getByText('Enter');
 
-    userEvent.type(emailInput, 'email@provider.com');
+    userEvent.type(emailInput, 'email@trybe.com');
     userEvent.type(passwordInput, '1234567');
     userEvent.click(button);
 
     const { pathname } = history.location;
     expect(pathname).toBe('/meals');
+  });
+});
+
+describe('Testa o componente Header', () => {
+  test('Verifica o botão Profile', () => {
+    const { history } = renderWithRouter(<App />, { initialEntries: ['/meals'] });
+
+    const profileBtn = screen.getByRole('img', { name: /profile/i });
+    userEvent.click(profileBtn);
+    const image = screen.getByRole('img', { name: /profile/i });
+
+    const { pathname } = history.location;
+    expect(pathname).toBe('/profile');
+
+    expect(image).toBeInTheDocument();
+  });
+  test('Verifica o botão Search', () => {
+    renderWithRouter(<App />, { initialEntries: ['/meals'] });
+
+    const searchBtn = screen.getByTestId('search-top-btn');
+    const image = screen.getByRole('img', { name: /profile/i });
+
+    userEvent.click(searchBtn);
+    expect(image).toBeInTheDocument();
+
+    expect(screen.getByTestId('search-input')).toBeVisible();
+  });
+  test('Vefifica a pagina profile', () => {
+    renderWithRouter(<App />, { initialEntries: ['/profile'] });
+    const profileBtn = screen.getByRole('img', { name: /profile/i });
+    userEvent.click(profileBtn);
+    expect(profileBtn).toBeInTheDocument();
   });
 });

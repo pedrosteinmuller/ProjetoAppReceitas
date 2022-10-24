@@ -47,12 +47,16 @@ function Header({ verifyPage }) {
 
           )
         }
+        {
+          disabled && (
+            <input
+              type="text"
+              data-testid="search-input"
+              disabled={ disabled }
+            />
+          )
+        }
 
-        <input
-          type="text"
-          data-testid="search-input"
-          disabled={ disabled }
-        />
       </div>
     </header>
   );
