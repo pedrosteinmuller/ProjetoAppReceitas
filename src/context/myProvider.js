@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import MyContext from './myContext';
 
 function Provider({ children }) {
-  const [email, setEmail] = useState('');
+  const [email, setEmaill] = useState('');
 
   return (
     <MyContext.Provider value={ email }>
