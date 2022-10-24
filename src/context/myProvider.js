@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import React, { useState, useMemo } from 'react';
 import MyContext from './myContext';
 
 function Provider({ children }) {
@@ -6,11 +7,11 @@ function Provider({ children }) {
   const [password, setPassword] = useState('');
 
   const handleEmail = ({ target }) => {
-    setEmaill(target.value)
+    setEmaill(target.value);
   };
 
   const handlePassword = ({ target }) => {
-    setPassword(target.value)
+    setPassword(target.value);
   };
 
   const context = useMemo(() => ({
@@ -19,15 +20,17 @@ function Provider({ children }) {
     handlePassword,
     password,
   }), [email,
-    password])
+    password]);
 
   return (
-    <MyContext.Provider value={context}>
+    <MyContext.Provider value={ context }>
       {children}
     </MyContext.Provider>
   );
 }
 
-Provider.propTypes = { children: PropTypes.node.isRequired };
+Provider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default Provider;

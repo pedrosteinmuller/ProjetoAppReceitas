@@ -1,30 +1,32 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import myContext from '../context/myContext';
 
 function Login() {
+  const [loginBtnDisabled, setLoginBtnDisabled] = useState(true);
 
-  // verifyButton = () => {
-  //   const { email, password } = this.state;
-  //   const regex = /\S+@\S+\.\S+/;
-  //   const verifyEmail = regex.test(email);
-  //   const number = 6;
-  //   const verifyPassword = password.length >= number;
-  //   this.setState({
-  //     isButtonDisable: !(verifyEmail && verifyPassword),
-  //   });
-  // };
   const { email,
     handleEmail,
     password,
     handlePassword,
   } = useContext(myContext);
 
+  const verifyButton = () => {
+    const regex = /\S+@\S+\.\S+/;
+    const verifyEmail = regex.test(email); // true
+    const number = 6;
+    const verifyPassword = password.length > number; // true
+    setLoginBtnDisabled(!(verifyEmail && verifyPassword));
+  };
+
+  useEffect(() => {
+    verifyButton();
+  }, [email, password]);
+
   return (
     <>
+      <p>teste_teste@gmail.com</p>
       <div>Login</div>
-      <form
-        onSubmit={(event) => loginButton(event)}
-      >
+      <form>
         <input
           data-testid="email-input"
           type="email"
@@ -42,7 +44,7 @@ function Login() {
         <button
           data-testid="login-submit-btn"
           type="submit"
-          disabled={isButtonDisable}
+          disabled={loginBtnDisabled}
         >
           Enter
         </button>
