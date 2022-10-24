@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import myContext from '../context/myContext';
 
-function Login() {
+function Login({ history }) {
   const [loginBtnDisabled, setLoginBtnDisabled] = useState(true);
 
   const { email,
@@ -27,6 +28,7 @@ function Login() {
     localStorage.setItem('user', JSON.stringify({
       email,
     }));
+    history.push('/Comidas');
   };
 
   return (
@@ -59,5 +61,11 @@ function Login() {
     </>
   );
 }
+
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default Login;
