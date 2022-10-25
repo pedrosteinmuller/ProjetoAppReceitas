@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function SearchBar() {
+  const [radio, setRadio] = useState('');
+
+  const handleChangeRadio = ({ target: { value } }) => { setRadio(value); };
   return (
     <div>
       <div>
@@ -11,6 +14,7 @@ function SearchBar() {
             data-testid="ingredient-search-radio"
             name="product"
             value="ingredient"
+            onChange={ handleChangeRadio }
           />
           Ingredient
         </label>
@@ -21,6 +25,8 @@ function SearchBar() {
             data-testid="name-search-radio"
             name="product"
             value="name"
+            onChange={ handleChangeRadio }
+
           />
           Name
         </label>
@@ -31,10 +37,13 @@ function SearchBar() {
             data-testid="first-letter-search-radio"
             name="product"
             value="first-letter"
+            onChange={ handleChangeRadio }
+
           />
           First Letter
         </label>
         <button type="button" data-testid="exec-search-btn">Search</button>
+        {radio}
       </div>
     </div>
 

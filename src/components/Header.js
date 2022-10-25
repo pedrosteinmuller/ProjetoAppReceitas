@@ -7,7 +7,7 @@ import searchIcon from '../images/searchIcon.svg';
 
 function Header({ verifyPage }) {
   const [disabled, setDisabled] = useState(false);
-  const [search, setSearch] = useState('');
+  const [search] = useState('');
 
   const history = useHistory();
 
@@ -15,7 +15,7 @@ function Header({ verifyPage }) {
     setDisabled(!disabled);
   }
 
-  const handleSearch = ({ target: { value } }) => setSearch(value);
+  // const handleSearch = ({ target: { value } }) => setSearch(value);
 
   return (
     <header>
@@ -47,7 +47,6 @@ function Header({ verifyPage }) {
                 />
               </button>
             </div>
-
           )
         }
         {
@@ -57,8 +56,8 @@ function Header({ verifyPage }) {
               value={ search }
               placeholder="Search Recipe"
               data-testid="search-input"
-              disabled={ disabled }
-              onChange={ handleSearch }
+              // onChange={ handleSearch }
+              disabled={ !disabled }
             />
           )
         }

@@ -72,6 +72,7 @@ describe('Testa o componente Header', () => {
     const image = screen.getByRole('img', { name: /profile/i });
 
     userEvent.click(searchBtn);
+    userEvent.type(searchBtn, 'teste');
     expect(image).toBeInTheDocument();
 
     expect(screen.getByTestId('search-input')).toBeVisible();
