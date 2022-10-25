@@ -5,6 +5,7 @@ import MyContext from './myContext';
 function Provider({ children }) {
   const [email, setEmaill] = useState('');
   const [password, setPassword] = useState('');
+  const [search, setSearch] = useState('');
 
   const handleEmail = ({ target }) => {
     setEmaill(target.value);
@@ -14,13 +15,16 @@ function Provider({ children }) {
     setPassword(target.value);
   };
 
+  const handleSearch = ({ target: { value } }) => setSearch(value);
+
   const context = useMemo(() => ({
     handleEmail,
+    handleSearch,
+    search,
     email,
     handlePassword,
     password,
-  }), [email,
-    password]);
+  }), [email, password, search]);
 
   return (
     <MyContext.Provider value={ context }>
