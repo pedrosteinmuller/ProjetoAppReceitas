@@ -12,7 +12,7 @@ function SearchBar() {
 
   const handleFilterResults = async () => {
     const path = pathname.includes('meals') ? 'themealdb' : 'thecocktaildb';
-    const verifyId = pathname.includes('meals') ? 'idMeal' : 'idDrink';
+    const verifyIdProduct = pathname.includes('meals') ? 'idMeal' : 'idDrink';
     let data = '';
     switch (radio) {
     case 'ingredient':
@@ -34,7 +34,7 @@ function SearchBar() {
       break;
     }
     if (data.length === 1) {
-      history.push(`${pathname}/${data[0][verifyId]}`);
+      history.push(`${pathname}/${data[0][verifyIdProduct]}`);
     }
   };
 
