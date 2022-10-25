@@ -1,37 +1,40 @@
 import React, { useState, useContext } from 'react';
+import { useLocation, useHistory } from 'react-router-dom';
 import { fetchApiIngredients, fetchFirstLetter, fetchName } from '../services/fetchApi';
 import myContext from '../context/myContext';
 
 function SearchBar() {
   const [radio, setRadio] = useState('');
+  const { pathname } = useLocation();
+  const history = useHistory();
 
   const { search, setSearch } = useContext(myContext);
 
   const handleFilterResults = async () => {
+    const path = pathname.includes('meals') ? 'themealdb' : 'thecocktaildb';
+    const verifyId = pathname.includes('meals') ? 'idMeal' : 'idDrink';
+    let data = '';
     switch (radio) {
     case 'ingredient':
-      await fetchApiIngredients(search, 'themealdb');
-      await fetchApiIngredients(search, 'thecocktaildb');
+      data = await fetchApiIngredients(search, path);
       setSearch('');
       break;
     case 'name':
-      await fetchName(search, 'themealdb');
-      await fetchName(search, 'thecocktaildb');
-
+      data = await fetchName(search, path);
       setSearch('');
       break;
-    case 'first-letter':
+    default:
       if (search.length === 1) {
-        await fetchFirstLetter(search, 'themealdb');
-        await fetchFirstLetter(search, 'thecocktaildb');
+        data = await fetchFirstLetter(search, path);
 
         setSearch('');
       } else {
         global.alert('Your search must have only 1 (one) character');
       }
       break;
-    default:
-      break;
+    }
+    if (data.length === 1) {
+      history.push(`${pathname}/${data[0][verifyId]}`);
     }
   };
 
