@@ -19,7 +19,7 @@ describe('Testa o componente search', () => {
     expect(iconShearch).toBeInTheDocument();
     userEvent.click(iconShearch);
 
-    const radioName = screen.getByRole('radio', { name: /name/i });
+    const radioName = screen.getByRole('radio', { name: /Name/i });
     userEvent.click(radioName);
 
     const barSearch = screen.getByRole('textbox');
