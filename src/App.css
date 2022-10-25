@@ -29,12 +29,17 @@
 }
 */
 
-.meals > .logo {
+.meals>.logo {
   animation: shake 1.5s infinite ease;
   color: aliceblue;
-  font-family: Montserrat , sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 3em;
   font-weight: 900;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
 }
 
 @keyframes shake {

@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 function Profile() {
@@ -6,6 +7,7 @@ function Profile() {
     <div>
       <Header verifyPage />
       <h1 data-testid="page-title">Profile</h1>
+      <Footer />
     </div>
   );
 }
