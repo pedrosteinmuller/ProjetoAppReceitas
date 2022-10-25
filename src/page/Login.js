@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import myContext from '../context/myContext';
 
@@ -11,17 +11,17 @@ function Login({ history }) {
     handlePassword,
   } = useContext(myContext);
 
-  const verifyButton = () => {
+  const verifyButton = useCallback(() => {
     const regex = /\S+@\S+\.\S+/;
     const verifyEmail = regex.test(email); // true
     const number = 6;
     const verifyPassword = password.length > number; // true
     setLoginBtnDisabled(!(verifyEmail && verifyPassword));
-  };
+  }, [email, password.length]);
 
   useEffect(() => {
     verifyButton();
-  }, [email, password]);
+  }, [email, password, verifyButton]);
 
   const loginSubmit = (event) => {
     event.preventDefault();
@@ -35,25 +35,25 @@ function Login({ history }) {
     <>
       <p>teste_teste@gmail.com</p>
       <div>Login</div>
-      <form onSubmit={loginSubmit}>
+      <form onSubmit={ loginSubmit }>
         <input
           data-testid="email-input"
           type="email"
           name="email"
-          value={email}
-          onChange={handleEmail}
+          value={ email }
+          onChange={ handleEmail }
         />
         <input
           data-testid="password-input"
           type="password"
           name="password"
-          value={password}
-          onChange={handlePassword}
+          value={ password }
+          onChange={ handlePassword }
         />
         <button
           data-testid="login-submit-btn"
           type="submit"
-          disabled={loginBtnDisabled}
+          disabled={ loginBtnDisabled }
         >
           Enter
         </button>
