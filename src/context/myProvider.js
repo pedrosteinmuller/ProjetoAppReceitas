@@ -22,6 +22,7 @@ function Provider({ children }) {
     handleSearch,
     search,
     email,
+    setSearch,
     handlePassword,
     password,
   }), [email, password, search]);
