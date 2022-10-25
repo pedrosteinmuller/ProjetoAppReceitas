@@ -11,15 +11,20 @@ function SearchBar() {
     switch (radio) {
     case 'ingredient':
       await fetchApiIngredients(search, 'themealdb');
+      await fetchApiIngredients(search, 'thecocktaildb');
       setSearch('');
       break;
     case 'name':
       await fetchName(search, 'themealdb');
+      await fetchName(search, 'thecocktaildb');
+
       setSearch('');
       break;
     case 'first-letter':
       if (search.length === 1) {
         await fetchFirstLetter(search, 'themealdb');
+        await fetchFirstLetter(search, 'thecocktaildb');
+
         setSearch('');
       } else {
         global.alert('Your search must have only 1 (one) character');
