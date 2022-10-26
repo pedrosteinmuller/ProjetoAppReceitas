@@ -55,8 +55,12 @@ function Provider({ children }) {
       }
       break;
     }
-    if (getProducts.length === 1) {
+    console.log(getProducts);
+    if (getProducts?.length === 1) {
       history.push(`${pathname}/${getProducts[0][verifyIdProduct]}`);
+    }
+    if (!getProducts) {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
     }
   }, [data, history, pathname, radio, search]);
 
