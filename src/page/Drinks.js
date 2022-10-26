@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Recipes from '../components/Recipes';
 import myContext from '../context/myContext';
 
 function Drinks() {
@@ -9,6 +10,7 @@ function Drinks() {
   return (
     <div>
       <Header verifyPage={ false } />
+      <Recipes verify={ false } />
       <h1 data-testid="page-title">Drinks</h1>
       {
         data?.map((drink, index) => index < MAX_LENGTH && (
