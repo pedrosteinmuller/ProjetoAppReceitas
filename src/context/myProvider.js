@@ -55,8 +55,8 @@ function Provider({ children }) {
       }
       break;
     }
-    console.log(data);
     if (getProducts.length === 1) {
+      setData(getProducts);
       history.push(`${pathname}/${getProducts[0][verifyIdProduct]}`);
     }
   }, [data, history, pathname, radio, search]);
@@ -66,12 +66,13 @@ function Provider({ children }) {
     handleSearch,
     handleFilterResults,
     handleChangeRadio,
+    data,
     search,
     email,
     setSearch,
     handlePassword,
     password,
-  }), [email, handleFilterResults, password, search]);
+  }), [data, email, handleFilterResults, password, search]);
 
   return (
     <MyContext.Provider value={ context }>
