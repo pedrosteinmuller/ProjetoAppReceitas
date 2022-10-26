@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import Recipes from '../components/Recipes';
+// import Recipes from '../components/Recipes';
 import myContext from '../context/myContext';
 
 function Meals() {
@@ -9,7 +9,7 @@ function Meals() {
   return (
     <div>
       <Header verifyPage={ false } />
-      <Recipes />
+      {/* <Recipes /> */}
       <h1 data-testid="page-title">Meals</h1>
       {
         data?.map((meal, index) => (
