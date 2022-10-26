@@ -1,44 +1,9 @@
-import React, { useState, useContext } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
-import { fetchApiIngredients, fetchFirstLetter, fetchName } from '../services/fetchApi';
+import React, { useContext } from 'react';
 import myContext from '../context/myContext';
 
 function SearchBar() {
-  const [radio, setRadio] = useState('');
-  const { pathname } = useLocation();
-  const history = useHistory();
+  const { handleFilterResults, handleChangeRadio } = useContext(myContext);
 
-  const { search, setSearch } = useContext(myContext);
-
-  const handleFilterResults = async () => {
-    const path = pathname.includes('meals') ? 'themealdb' : 'thecocktaildb';
-    const verifyIdProduct = pathname.includes('meals') ? 'idMeal' : 'idDrink';
-    let data = '';
-    switch (radio) {
-    case 'ingredient':
-      data = await fetchApiIngredients(search, path);
-      setSearch('');
-      break;
-    case 'name':
-      data = await fetchName(search, path);
-      setSearch('');
-      break;
-    default:
-      if (search.length === 1) {
-        data = await fetchFirstLetter(search, path);
-
-        setSearch('');
-      } else {
-        global.alert('Your search must have only 1 (one) character');
-      }
-      break;
-    }
-    if (data.length === 1) {
-      history.push(`${pathname}/${data[0][verifyIdProduct]}`);
-    }
-  };
-
-  const handleChangeRadio = ({ target: { value } }) => { setRadio(value); };
   return (
     <div>
       <div>
