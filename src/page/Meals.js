@@ -1,17 +1,18 @@
 import React, { useContext } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+// import Recipes from '../components/Recipes';
 import myContext from '../context/myContext';
 
 function Meals() {
   const { data } = useContext(myContext);
-  const MAX_LENGTH = 12;
   return (
     <div>
       <Header verifyPage={ false } />
+      {/* <Recipes /> */}
       <h1 data-testid="page-title">Meals</h1>
       {
-        data.length <= MAX_LENGTH && data?.map((meal, index) => (
+        data?.map((meal, index) => (
           <div data-testid={ `${index}-recipe-card` } key={ meal.idMeal }>
             <img
               data-testid={ `${index}-card-img` }
