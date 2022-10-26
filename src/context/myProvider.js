@@ -56,7 +56,6 @@ function Provider({ children }) {
       break;
     }
     if (getProducts.length === 1) {
-      setData(getProducts);
       history.push(`${pathname}/${getProducts[0][verifyIdProduct]}`);
     }
   }, [data, history, pathname, radio, search]);
