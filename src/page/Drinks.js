@@ -13,7 +13,7 @@ function Drinks() {
       <Header verifyPage={ false } />
       <h1 data-testid="page-title">Drinks</h1>
       {
-        data?.map((drink, index) => index < MAX_LENGTH && (
+        data?.slice(0, MAX_LENGTH).map((drink, index) => (
           <CardRecipes
             index={ index }
             key={ drink.idDrink }

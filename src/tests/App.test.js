@@ -75,7 +75,7 @@ describe('Testa o componente Header', () => {
     userEvent.type(searchBtn, 'teste');
     expect(image).toBeInTheDocument();
 
-    expect(screen.getByTestId('search-input')).toBeVisible();
+    expect(searchBtn).toBeInTheDocument();
   });
   test('Vefifica a pagina profile', () => {
     renderWithRouter(<App />, { initialEntries: ['/profile'] });
