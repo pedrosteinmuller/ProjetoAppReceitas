@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 
 import MyContext from './myContext';
@@ -11,6 +11,9 @@ function Provider({ children }) {
   const [search, setSearch] = useState('');
   const [data, setData] = useState([]);
   const [radio, setRadio] = useState('');
+  const [drinksData, setDrinks] = useState([]);
+  const [mealsData, setMeals] = useState([]);
+  const [verifyRender, setVerifyRender] = useState(false);
 
   const { pathname } = useLocation();
   const history = useHistory();
@@ -55,27 +58,49 @@ function Provider({ children }) {
       }
       break;
     }
-    console.log(getProducts);
     if (getProducts?.length === 1) {
       history.push(`${pathname}/${getProducts[0][verifyIdProduct]}`);
     }
     if (!getProducts) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
     }
-  }, [data, history, pathname, radio, search]);
+    if (verifyRender === false) {
+      setVerifyRender(true);
+    } else {
+      setVerifyRender(false);
+    }
+  }, [data, history, pathname, radio, search, verifyRender]);
+
+  useEffect(() => {
+    const fetchAPIs = async () => {
+      const urlDrinks = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+      const urlMeals = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+      const responseMeals = await fetch(urlMeals);
+      const { meals } = await responseMeals.json();
+      const responseDrinks = await fetch(urlDrinks);
+      const { drinks } = await responseDrinks.json();
+      setDrinks(drinks);
+      setMeals(meals);
+    };
+    fetchAPIs();
+  }, []);
 
   const context = useMemo(() => ({
     handleEmail,
     handleSearch,
     handleFilterResults,
     handleChangeRadio,
+    verifyRender,
+    mealsData,
+    drinksData,
     data,
     search,
     email,
     setSearch,
     handlePassword,
     password,
-  }), [data, email, handleFilterResults, password, search]);
+  }), [data, drinksData, email, handleFilterResults,
+    mealsData, password, search, verifyRender]);
 
   return (
     <MyContext.Provider value={ context }>
