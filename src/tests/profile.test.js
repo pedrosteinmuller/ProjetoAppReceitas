@@ -26,7 +26,7 @@ describe('Testa o componente Profile', () => {
 
     const btnProfile = screen.getByRole('img', { name: /profile/i });
     userEvent.click(btnProfile);
-    const titleProfile = screen.getByRole('heading', { name: /profile/i });
+    const titleProfile = screen.getByText('Profile');
     expect(titleProfile).toBeInTheDocument();
 
     const btnDone = screen.getByRole('button', { name: /done recipes/i });

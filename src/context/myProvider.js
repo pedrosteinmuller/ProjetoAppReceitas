@@ -68,8 +68,6 @@ function Provider({ children }) {
     }
     if (verifyRender === false) {
       setVerifyRender(true);
-    } else {
-      setVerifyRender(false);
     }
   }, [data, history, pathname, radio, search, verifyRender]);
 
