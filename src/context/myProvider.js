@@ -14,6 +14,8 @@ function Provider({ children }) {
   const [drinksData, setDrinks] = useState([]);
   const [mealsData, setMeals] = useState([]);
   const [verifyRender, setVerifyRender] = useState(false);
+  const [categoryFilterDrink, setCategoryFilterDrink] = useState([]);
+  const [categoryFilterMeals, setCategoryFilterMeals] = useState([]);
 
   const { pathname } = useLocation();
   const history = useHistory();
@@ -85,11 +87,27 @@ function Provider({ children }) {
     fetchAPIs();
   }, []);
 
+  useEffect(() => {
+    const fetchApiCategory = async () => {
+      const urlMealsCategory = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+      const urlDrinksCategory = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+      const responseMeals = await fetch(urlMealsCategory);
+      const meals = await responseMeals.json();
+      const responseDrinks = await fetch(urlDrinksCategory);
+      const drinks = await responseDrinks.json();
+      setCategoryFilterDrink(drinks);
+      setCategoryFilterMeals(meals);
+    };
+    fetchApiCategory();
+  }, []);
+
   const context = useMemo(() => ({
     handleEmail,
     handleSearch,
     handleFilterResults,
     handleChangeRadio,
+    categoryFilterDrink,
+    categoryFilterMeals,
     verifyRender,
     mealsData,
     drinksData,
@@ -99,7 +117,8 @@ function Provider({ children }) {
     setSearch,
     handlePassword,
     password,
-  }), [data, drinksData, email, handleFilterResults,
+  }), [categoryFilterDrink, categoryFilterMeals,
+    data, drinksData, email, handleFilterResults,
     mealsData, password, search, verifyRender]);
 
   return (
