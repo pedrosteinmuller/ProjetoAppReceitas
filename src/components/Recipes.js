@@ -4,7 +4,8 @@ import myContext from '../context/myContext';
 
 function Recipes({ verify }) {
   const { drinksData, mealsData,
-    categoryFilterDrink, categoryFilterMeals } = useContext(myContext);
+    categoryFilterDrink, categoryFilterMeals, searchByCategory, removeFilters,
+  } = useContext(myContext);
   const MAX_LENGTH = 12;
   const five = 5;
   const mealsList = categoryFilterMeals.meals;
@@ -15,12 +16,20 @@ function Recipes({ verify }) {
         verify ? (
           <div>
             <div>
+              <button
+                type="button"
+                data-testid="All-category-filter"
+                onClick={ removeFilters }
+              >
+                All
+              </button>
               {
                 mealsList?.map((meal, index) => (
                   <div key={ index }>
                     <button
                       data-testid={ `${meal.strCategory}-category-filter` }
                       type="button"
+                      onClick={ () => searchByCategory(meal.strCategory) }
                     >
                       {meal.strCategory}
                     </button>
@@ -46,12 +55,21 @@ function Recipes({ verify }) {
         ) : (
           <div>
             <div>
+              <button
+                type="button"
+                data-testid="All-category-filter"
+                onClick={ removeFilters }
+              >
+                All
+              </button>
               {
                 drinksList?.map((drink, index) => (
                   <div key={ index }>
                     <button
                       data-testid={ `${drink.strCategory}-category-filter` }
                       type="button"
+                      onClick={ () => searchByCategory(drink.strCategory) }
+
                     >
                       {drink.strCategory}
                     </button>

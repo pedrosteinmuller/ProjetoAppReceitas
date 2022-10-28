@@ -15,3 +15,9 @@ export const fetchFirstLetter = async (first, themealdb) => {
   const data = await request.json();
   return data?.meals || data?.drinks;
 };
+
+export const fetchApiCategoryRecipes = async (category, themealdb) => {
+  const request = await fetch(`https://www.${themealdb}.com/api/json/v1/1/filter.php?c=${category}`);
+  const data = await request.json();
+  return data?.meals || data?.drinks;
+};
