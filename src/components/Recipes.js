@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import myContext from '../context/myContext';
 
@@ -41,12 +42,14 @@ function Recipes({ verify }) {
               mealsData
                 ?.map((meal, index) => index < MAX_LENGTH && (
                   <div data-testid={ `${index}-recipe-card` } key={ meal.idMeal }>
-                    <img
-                      data-testid={ `${index}-card-img` }
-                      src={ meal.strMealThumb }
-                      alt={ meal.strMeal }
-                    />
-                    <h1 data-testid={ `${index}-card-name` }>{ meal.strMeal }</h1>
+                    <Link to={ `/meals/${meal.idMeal}` }>
+                      <h1 data-testid={ `${index}-card-name` }>{ meal.strMeal }</h1>
+                      <img
+                        data-testid={ `${index}-card-img` }
+                        src={ meal.strMealThumb }
+                        alt={ meal.strMeal }
+                      />
+                    </Link>
                   </div>
                 ))
             }
@@ -79,12 +82,15 @@ function Recipes({ verify }) {
             </div>
             {drinksData?.map((drink, index) => index < MAX_LENGTH && (
               <div data-testid={ `${index}-recipe-card` } key={ drink.idDrink }>
-                <img
-                  data-testid={ `${index}-card-img` }
-                  src={ drink.strDrinkThumb }
-                  alt={ drink.strDrink }
-                />
-                <h1 data-testid={ `${index}-card-name` }>{ drink.strDrink }</h1>
+                <Link to={ `/drinks/${drink.idDrink}` }>
+                  <h1 data-testid={ `${index}-card-name` }>{ drink.strDrink }</h1>
+                  <img
+                    data-testid={ `${index}-card-img` }
+                    src={ drink.strDrinkThumb }
+                    alt={ drink.strDrink }
+                  />
+                </Link>
+
               </div>
             ))}
           </div>
