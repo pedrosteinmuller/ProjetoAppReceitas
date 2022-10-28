@@ -53,7 +53,6 @@ function Recipes({ verify }) {
                   </div>
                 ))
             }
-
           </div>
         ) : (
           <div>
@@ -90,7 +89,6 @@ function Recipes({ verify }) {
                     alt={ drink.strDrink }
                   />
                 </Link>
-
               </div>
             ))}
           </div>

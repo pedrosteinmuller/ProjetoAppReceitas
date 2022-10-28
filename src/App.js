@@ -22,7 +22,7 @@ function App() {
         <Route path="/drinks" component={ Drinks } />
         <Route path="/profile" component={ Profile } />
         <Route path="/meals/:id" component={ Meals } />
-        <Route path="/drinks/:id" component={ Meals } />
+        <Route path="/drinks/:id" component={ Drinks } />
         <Route path="/meals/:id/in-progress" component={ MealsProgress } />
         <Route path="/drinks/:id/in-progress" component={ DrinksProgress } />
         <Route path="/done-recipes" component={ DoneRecipes } />
