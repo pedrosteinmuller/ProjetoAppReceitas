@@ -21,3 +21,9 @@ export const fetchApiCategoryRecipes = async (category, themealdb) => {
   const data = await request.json();
   return data?.meals || data?.drinks;
 };
+
+export const fetchApiRecipesDetails = async (idRecipe, themealdb) => {
+  const request = await fetch(`https://www.${themealdb}.com/api/json/v1/1/lookup.php?i=${idRecipe}`);
+  const data = await request.json();
+  return data?.meals || data?.drinks;
+};

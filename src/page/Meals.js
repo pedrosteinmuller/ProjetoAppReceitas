@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Recipes from '../components/Recipes';
 import myContext from '../context/myContext';
 import CardRecipes from '../components/CardRecipes';
+// import RecipeDetails from '../components/RecipeDetails';
 
 function Meals() {
   const { data, verifyRender } = useContext(myContext);
