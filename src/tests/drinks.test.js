@@ -51,4 +51,12 @@ describe('Testa o componente CardMeals', () => {
 
     expect(drink).toBeInTheDocument();
   });
+  test('Card recipes renderiza na pagina drinks', async () => {
+    renderWithRouter(<App />, { initialEntries: ['/drinks'] });
+    const iconSearch = await screen.findByRole('img', { name: /search/i });
+    userEvent.click(iconSearch);
+
+    const cardDrinks = await screen.findAllByTestId(/0-card-img/i);
+    expect(cardDrinks.length).toBe(2);
+  });
 });
