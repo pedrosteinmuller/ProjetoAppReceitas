@@ -3,7 +3,11 @@ import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 
 import MyContext from './myContext';
-import { fetchApiIngredients, fetchFirstLetter, fetchName } from '../services/fetchApi';
+import { fetchApiIngredients,
+  fetchFirstLetter, fetchName, fetchApiCategoryRecipes } from '../services/fetchApi';
+
+let toggleMeals = [];
+let toggleDrinks = [];
 
 function Provider({ children }) {
   const [email, setEmaill] = useState('');
@@ -13,6 +17,7 @@ function Provider({ children }) {
   const [radio, setRadio] = useState('');
   const [drinksData, setDrinks] = useState([]);
   const [mealsData, setMeals] = useState([]);
+  const [toggleCategory, setToggleCategory] = useState('');
   const [verifyRender, setVerifyRender] = useState(false);
   const [categoryFilterDrink, setCategoryFilterDrink] = useState([]);
   const [categoryFilterMeals, setCategoryFilterMeals] = useState([]);
@@ -68,10 +73,29 @@ function Provider({ children }) {
     }
     if (verifyRender === false) {
       setVerifyRender(true);
-    } else {
-      setVerifyRender(false);
     }
   }, [data, history, pathname, radio, search, verifyRender]);
+
+  const searchByCategory = useCallback(async (category) => {
+    const path = pathname.includes('meals') ? 'themealdb' : 'thecocktaildb';
+    const URL = await fetchApiCategoryRecipes(category, path);
+    setToggleCategory(category);
+
+    if (toggleCategory !== category) {
+      setDrinks(URL);
+      setMeals(URL);
+    } else {
+      setMeals(toggleMeals);
+      setDrinks(toggleDrinks);
+      setToggleCategory('');
+    }
+  }, [pathname, toggleCategory]);
+
+  const removeFilters = () => {
+    setMeals(toggleMeals);
+    setDrinks(toggleDrinks);
+    setToggleCategory('');
+  };
 
   useEffect(() => {
     const fetchAPIs = async () => {
@@ -83,6 +107,8 @@ function Provider({ children }) {
       const { drinks } = await responseDrinks.json();
       setDrinks(drinks);
       setMeals(meals);
+      toggleMeals = meals;
+      toggleDrinks = drinks;
     };
     fetchAPIs();
   }, []);
@@ -106,6 +132,8 @@ function Provider({ children }) {
     handleSearch,
     handleFilterResults,
     handleChangeRadio,
+    searchByCategory,
+    removeFilters,
     categoryFilterDrink,
     categoryFilterMeals,
     verifyRender,
@@ -117,9 +145,9 @@ function Provider({ children }) {
     setSearch,
     handlePassword,
     password,
-  }), [categoryFilterDrink, categoryFilterMeals,
-    data, drinksData, email, handleFilterResults,
-    mealsData, password, search, verifyRender]);
+  }), [categoryFilterDrink, categoryFilterMeals, data,
+    drinksData, email, handleFilterResults, mealsData,
+    password, search, verifyRender, searchByCategory]);
 
   return (
     <MyContext.Provider value={ context }>
