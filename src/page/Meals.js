@@ -17,6 +17,8 @@ function Meals() {
         data?.map((meal, index) => index < MAX_LENGTH && (
           <CardRecipes
             index={ index }
+            recipes="meals"
+            id={ meal.idMeal }
             key={ meal.idMeal }
             tag={ meal.strMeal }
             img={ meal.strMealThumb }
