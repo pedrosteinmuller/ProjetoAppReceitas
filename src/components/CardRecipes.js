@@ -7,6 +7,7 @@ export default function CardRecipes({ img, tag, index }) {
       <img data-testid={ `${index}-card-img` } src={ img } alt={ tag } />
       <h1 data-testid={ `${index}-card-name` }>{ tag }</h1>
     </div>
+
   );
 }
 
