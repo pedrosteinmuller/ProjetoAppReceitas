@@ -1,0 +1,50 @@
+.itenscard {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.itens-image-container img {
+  max-width: 200px;
+  max-height: 250px;
+}
+
+.itenscard h1 {
+  font-size: 20px;
+}
+
+.container-big {
+  display: flex;
+  background-color: white;
+}
+
+.itens-info {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.itens-category {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.itens-category button {
+  background-color: black;
+  color: white;
+  padding: 5px;
+  border-radius: 15px;
+  margin: 5px;
+  width: 130px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}

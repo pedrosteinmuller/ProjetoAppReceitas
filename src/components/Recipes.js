@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import myContext from '../context/myContext';
+import '../css/Recipes.css';
 
 function Recipes({ verify }) {
   const { drinksData, mealsData,
@@ -12,11 +13,11 @@ function Recipes({ verify }) {
   const mealsList = categoryFilterMeals.meals;
   const drinksList = categoryFilterDrink.drinks;
   return (
-    <div>
+    <div className="container-big">
       {
         verify ? (
-          <div>
-            <div>
+          <div className="itens-info">
+            <div className="itens-category">
               <button
                 type="button"
                 data-testid="All-category-filter"
@@ -41,22 +42,30 @@ function Recipes({ verify }) {
             {
               mealsData
                 ?.map((meal, index) => index < MAX_LENGTH && (
-                  <div data-testid={ `${index}-recipe-card` } key={ meal.idMeal }>
-                    <Link to={ `/meals/${meal.idMeal}` }>
-                      <h1 data-testid={ `${index}-card-name` }>{ meal.strMeal }</h1>
-                      <img
-                        data-testid={ `${index}-card-img` }
-                        src={ meal.strMealThumb }
-                        alt={ meal.strMeal }
-                      />
-                    </Link>
+                  <div
+                    data-testid={ `${index}-recipe-card` }
+                    key={ meal.idMeal }
+                    className="itenscard"
+                  >
+                    <div className="main-content">
+                      <Link to={ `/meals/${meal.idMeal}` }>
+                        <h1 data-testid={ `${index}-card-name` }>{ meal.strMeal }</h1>
+                        <div className="itens-image-container">
+                          <img
+                            data-testid={ `${index}-card-img` }
+                            src={ meal.strMealThumb }
+                            alt={ meal.strMeal }
+                          />
+                        </div>
+                      </Link>
+                    </div>
                   </div>
                 ))
             }
           </div>
         ) : (
-          <div>
-            <div>
+          <div className="itens-info">
+            <div className="itens-category">
               <button
                 type="button"
                 data-testid="All-category-filter"
@@ -80,15 +89,24 @@ function Recipes({ verify }) {
               }
             </div>
             {drinksData?.map((drink, index) => index < MAX_LENGTH && (
-              <div data-testid={ `${index}-recipe-card` } key={ drink.idDrink }>
-                <Link to={ `/drinks/${drink.idDrink}` }>
-                  <h1 data-testid={ `${index}-card-name` }>{ drink.strDrink }</h1>
-                  <img
-                    data-testid={ `${index}-card-img` }
-                    src={ drink.strDrinkThumb }
-                    alt={ drink.strDrink }
-                  />
-                </Link>
+              <div className="itenscard">
+                <div
+                  data-testid={ `${index}-recipe-card` }
+                  key={ drink.idDrink }
+                  className="main-content"
+                >
+                  <Link to={ `/drinks/${drink.idDrink}` }>
+                    <h1 data-testid={ `${index}-card-name` }>{ drink.strDrink }</h1>
+                    <div className="itens-image-container">
+                      <img
+                        data-testid={ `${index}-card-img` }
+                        src={ drink.strDrinkThumb }
+                        alt={ drink.strDrink }
+                      />
+                    </div>
+
+                  </Link>
+                </div>
               </div>
             ))}
           </div>

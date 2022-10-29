@@ -1,0 +1,37 @@
+.main-container-header{
+  padding: 10px;
+  background-color: #FCDC36;
+  color: #41197F
+}
+
+.main-container-header h1{
+  text-align: center;
+    margin: 0;
+    font-size: 33px;
+    text-transform: uppercase;
+    font-weight: 350;
+}
+ sub {
+  font-size: 28px;
+  text-transform:lowercase;
+  font-weight: 900;
+ }
+
+ .buttons-header{
+  display: flex;
+  flex-direction: row-reverse;
+  background-color: #FCDC36;
+ }
+
+button {
+  margin: 0 3px;
+  border: none;
+  background-color: #FCDC36;
+}
+
+.teste {
+  display: flex;
+}
+.recipesApp {
+  margin: 0 auto;
+}

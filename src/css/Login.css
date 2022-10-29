@@ -1,0 +1,53 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+form div{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+form input {
+ padding: 5px;
+ min-width: 250px;
+ font-size: 12px;
+ border: 1px solid cornflowerblue; 
+ border-radius: 20px;
+}
+
+form button {
+  background-color: #FCC436;
+  color: black;
+  padding: 5px 20px;
+  border: none;
+  border: 1px solid cornflowerblue; 
+  border-radius: 20px;
+  cursor: pointer;
+  width: 100%;
+}
+
+form h1 {
+  display: flex;
+  justify-content: center;
+  font-size: 25px;
+}
+
+.logoRecipes img {
+  width: 250px;  
+  padding-top: 10px;
+}
+
+.form-container {
+  display: flex;
+  justify-content: space-around;
+}

@@ -1,6 +1,8 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import myContext from '../context/myContext';
+import '../css/Login.css';
+import logo from '../css/logoRecipes.png';
 
 function Login({ history }) {
   const [loginBtnDisabled, setLoginBtnDisabled] = useState(true);
@@ -32,33 +34,46 @@ function Login({ history }) {
   };
 
   return (
-    <>
-      <p>teste_teste@gmail.com</p>
-      <div>Login</div>
-      <form onSubmit={ loginSubmit }>
-        <input
-          data-testid="email-input"
-          type="email"
-          name="email"
-          value={ email }
-          onChange={ handleEmail }
-        />
-        <input
-          data-testid="password-input"
-          type="password"
-          name="password"
-          value={ password }
-          onChange={ handlePassword }
-        />
-        <button
-          data-testid="login-submit-btn"
-          type="submit"
-          disabled={ loginBtnDisabled }
-        >
-          Enter
-        </button>
+    <section>
+      <div className="logoRecipes">
+        <img src={ logo } alt="logoRecipes" />
+      </div>
+      <form className="form-container" onSubmit={ loginSubmit }>
+        <div>
+          {/* <p>teste_teste@gmail.com</p> */}
+          <h1>Login</h1>
+          <div>
+            <input
+              data-testid="email-input"
+              placeholder="Email"
+              type="email"
+              name="email"
+              value={ email }
+              onChange={ handleEmail }
+            />
+          </div>
+          <div>
+            <input
+              data-testid="password-input"
+              placeholder="Password"
+              type="password"
+              name="password"
+              value={ password }
+              onChange={ handlePassword }
+            />
+          </div>
+          <div>
+            <button
+              data-testid="login-submit-btn"
+              type="submit"
+              disabled={ loginBtnDisabled }
+            >
+              Enter
+            </button>
+          </div>
+        </div>
       </form>
-    </>
+    </section>
   );
 }
 
