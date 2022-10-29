@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import Recipes from '../components/Recipes';
 import myContext from '../context/myContext';
 import CardRecipes from '../components/CardRecipes';
-// import RecipeDetails from '../components/RecipeDetails';
+import '../css/Meals.css';
 
 function Meals() {
   const { data, verifyRender } = useContext(myContext);
@@ -12,7 +12,9 @@ function Meals() {
   return (
     <div>
       <Header verifyPage={ false } />
-      <h1 data-testid="page-title">Meals</h1>
+      <div className="mealstitle">
+        <h1 data-testid="page-title">Meals</h1>
+      </div>
       {
         data?.map((meal, index) => index < MAX_LENGTH && (
           <CardRecipes
