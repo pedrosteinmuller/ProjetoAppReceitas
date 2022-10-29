@@ -15,7 +15,6 @@ function RecipeDetails() {
     };
     fetchApiDetails();
   }, []);
-  console.log(mealsDetails);
   const ingredientList = Object.entries(mealsDetails)
     .filter((item) => item[0].includes('strIngredient') && item[1] !== '')
     .filter((item) => item[1] !== null)
@@ -28,30 +27,33 @@ function RecipeDetails() {
     .map((measure) => measure[1]);
   return (
     <div>
-      <img
-        width="100px"
-        data-testid="recipe-photo"
-        src={ mealsDetails.strMealThumb }
-        alt={ mealsDetails.strMeal }
-      />
+      {
+        pathname.includes('meals') ? (
+          <div>
+            <img
+              width="100px"
+              data-testid="recipe-photo"
+              src={ mealsDetails.strMealThumb }
+              alt={ mealsDetails.strMeal }
+            />
 
-      <h2 data-testid="recipe-title">{mealsDetails.strMeal}</h2>
-      <h3 data-testid="recipe-category">{mealsDetails.strCategory}</h3>
-      <ul>
-        {
-          ingredientList
-            .map((ingredient, index) => (
-              <li
-                data-testid={ `${index}-ingredient-name-and-measure` }
-                key={ index }
-              >
-                {`${measureList[index] || ''} ${ingredient}`}
+            <h2 data-testid="recipe-title">{mealsDetails.strMeal}</h2>
+            <h3 data-testid="recipe-category">{mealsDetails.strCategory}</h3>
+            <ul>
+              {
+                ingredientList
+                  .map((ingredient, index) => (
+                    <li
+                      data-testid={ `${index}-ingredient-name-and-measure` }
+                      key={ index }
+                    >
+                      {`${measureList[index] || ''} ${ingredient}`}
 
-              </li>))
-        }
-      </ul>
-      <p data-testid="instructions">{mealsDetails.strInstructions}</p>
-      { pathname.includes('meals')
+                    </li>))
+              }
+            </ul>
+            <p data-testid="instructions">{mealsDetails.strInstructions}</p>
+            { pathname.includes('meals')
         && <iframe
           width="560"
           height="315"
@@ -64,6 +66,37 @@ function RecipeDetails() {
         autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         />}
+          </div>
+        )
+          : (
+            <div>
+              <img
+                src={ mealsDetails.strDrinkThumb }
+                alt={ mealsDetails.strDrink }
+                data-testid="recipe-photo"
+              />
+
+              <h2 data-testid="recipe-title">{mealsDetails.strDrink}</h2>
+              <p data-testid="recipe-category">{mealsDetails.strAlcoholic}</p>
+
+              <ul>
+                {
+                  ingredientList
+                    .map((ingredient, index) => (
+                      <li
+                        data-testid={ `${index}-ingredient-name-and-measure` }
+                        key={ index }
+                      >
+                        {`${measureList[index] || ''} ${ingredient}`}
+
+                      </li>))
+                }
+              </ul>
+
+              <p data-testid="instructions">{mealsDetails.strInstructions}</p>
+            </div>
+          )
+      }
     </div>
   );
 }
