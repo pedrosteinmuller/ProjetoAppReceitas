@@ -1,50 +1,49 @@
 * {
-  padding: 0;
-  margin: 0;
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 section {
-  display: flex;
   align-items: center;
-  justify-content: center;
+  display: flex;
   height: 100vh;
+  justify-content: center;
 }
 
-form div{
+form div {
   display: flex;
   flex-direction: column;
   margin-bottom: 10px;
 }
 
 form input {
- padding: 5px;
- min-width: 250px;
- font-size: 12px;
- border: 1px solid cornflowerblue; 
- border-radius: 20px;
+  border: 1px solid cornflowerblue;
+  border-radius: 20px;
+  font-size: 12px;
+  min-width: 250px;
+  padding: 5px;
 }
 
 form button {
-  background-color: #FCC436;
-  color: black;
-  padding: 5px 20px;
-  border: none;
-  border: 1px solid cornflowerblue; 
+  background-color: #fcc436;
+  border: 1px solid cornflowerblue;
   border-radius: 20px;
+  color: black;
   cursor: pointer;
+  padding: 5px 20px;
   width: 100%;
 }
 
 form h1 {
   display: flex;
-  justify-content: center;
   font-size: 25px;
+  justify-content: center;
 }
 
 .logoRecipes img {
-  width: 250px;  
   padding-top: 10px;
+  width: 250px;
 }
 
 .form-container {

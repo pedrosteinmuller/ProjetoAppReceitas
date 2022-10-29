@@ -1,14 +1,14 @@
 .footer-container {
+  background-color: #fcdc36;
   bottom: 0;
-  left: 0;
+  display: flex;
   height: 40px;
+  justify-content: space-around;
+  left: 0;
   position: fixed;
   width: 100%;
-  display: flex;
-  justify-content: space-around;
-  background-color: #FCDC36;
 }
 
 .footer-container button {
-  background-color: #FCDC36;
+  background-color: #fcdc36;
 }
