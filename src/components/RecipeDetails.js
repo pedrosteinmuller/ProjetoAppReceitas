@@ -1,8 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { fetchApiRecipesDetails } from '../services/fetchApi';
+import myContext from '../context/myContext';
+import '../css/RecipeDetails.css';
+import 'bootstrap/dist/css/bootstrap.css';
 
 function RecipeDetails() {
+  const { drinksData, mealsData } = useContext(myContext);
+  const SIX = 6;
+  const recommendationMeals = mealsData?.slice(0, SIX);
+  const recommendationDrinks = drinksData?.slice(0, SIX);
   const param = useParams();
   const [mealsDetails, setMealsDetails] = useState({});
   const { pathname } = useLocation();
@@ -26,7 +33,7 @@ function RecipeDetails() {
     .filter((item) => item[1] !== undefined)
     .map((measure) => measure[1]);
   return (
-    <div>
+    <div className="conteiner-recipe-details ">
       {
         pathname.includes('meals') ? (
           <div>
@@ -54,23 +61,54 @@ function RecipeDetails() {
             </ul>
             <p data-testid="instructions">{mealsDetails.strInstructions}</p>
             { pathname.includes('meals')
-        && <iframe
-          width="560"
-          height="315"
-          src={ mealsDetails.strYoutube?.replace('watch?v=', 'embed/') }
-          title="YouTube video player"
-          data-testid="video"
-          frameBorder="0"
-          allow="
-        accelerometer;
-        autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        />}
+               && <iframe
+                 width="560"
+                 height="315"
+                 src={ mealsDetails.strYoutube?.replace('watch?v=', 'embed/') }
+                 title="YouTube video player"
+                 data-testid="video"
+                 frameBorder="0"
+                 allow="accelerometer;
+                 autoplay; clipboard-write;
+                 encrypted-media; gyroscope;
+                 picture-in-picture"
+                 allowFullScreen
+               />}
+            {/* <CarouselDrinks /> */}
+            <div className="carousel">
+              {recommendationDrinks?.map((recipe, index) => (
+                <div
+                  data-testid={ `${index}-recommendation-card` }
+                  key={ index }
+                  className="card"
+                >
+                  <h6
+                    data-testid={ `${index}-recommendation-title` }
+                  >
+                    {recipe.strDrink}
+                  </h6>
+                  <div className="image">
+                    <img
+                      src={ recipe.strDrinkThumb }
+                      alt={ recipe.strDrink }
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+            <button
+              type="button"
+              data-testid="start-recipe-btn"
+              className="btnStartRecipe"
+            >
+              Start Recipe
+            </button>
           </div>
         )
           : (
             <div>
               <img
+                width="100px"
                 src={ mealsDetails.strDrinkThumb }
                 alt={ mealsDetails.strDrink }
                 data-testid="recipe-photo"
@@ -94,6 +132,27 @@ function RecipeDetails() {
               </ul>
 
               <p data-testid="instructions">{mealsDetails.strInstructions}</p>
+              {/* <CarouselMeals /> */}
+              <div className="carousel">
+                {recommendationMeals?.map((recipe, index) => (
+                  <div
+                    data-testid={ `${index}-recommendation-card` }
+                    key={ index }
+                  >
+                    <h6 data-testid={ `${index}-recommendation-title` }>
+                      {recipe.strMeal}
+                    </h6>
+                    <img src={ recipe.strMealThumb } alt={ recipe.strMeal } />
+                  </div>
+                ))}
+              </div>
+              <button
+                type="button"
+                data-testid="start-recipe-btn"
+                className="btnStartRecipe"
+              >
+                Start Recipe
+              </button>
             </div>
           )
       }

@@ -1,0 +1,26 @@
+.carousel {
+  column-gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  overflow-x: scroll;
+  width: 360px;
+}
+
+.conteiner-recipe-details {
+  width: 100%;
+}
+
+.carousel img {
+  width: 180px;
+}
+
+
+.card {
+  width: 180px;
+}
+
+.btnStartRecipe {
+  bottom: 0;
+  padding: 20px;
+  position: fixed;
+}
