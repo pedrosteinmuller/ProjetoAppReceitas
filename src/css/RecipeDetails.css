@@ -1,0 +1,19 @@
+  .carousel {
+    display: flex;
+    justify-content: center;
+    overflow-x: scroll;
+  }
+
+.carousel img{
+  width: 180px;
+}
+
+/* .card {
+  width: 60%;
+} */
+
+/* .btnStartRecipe{
+  padding: 20px;
+  position: fixed;
+  bottom: 0;
+} */
