@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { fetchApiRecipesDetails } from '../services/fetchApi';
-// import myContext from '../context/myContext';
+import myContext from '../context/myContext';
 import '../css/RecipeDetails.css';
-import CarouselMeals from './CarouselMeals';
-import CarouselDrinks from './CarouselDrinks';
+import 'bootstrap/dist/css/bootstrap.css';
 
 function RecipeDetails() {
-  // const { drinksData, mealsData } = useContext(myContext);
-  // const SIX = 6;
-  // const recommendationMeals = mealsData?.slice(0, SIX);
-  // const recommendationDrinks = drinksData?.slice(0, SIX);
+  const { drinksData, mealsData } = useContext(myContext);
+  const SIX = 6;
+  const recommendationMeals = mealsData?.slice(0, SIX);
+  const recommendationDrinks = drinksData?.slice(0, SIX);
   const param = useParams();
   const [mealsDetails, setMealsDetails] = useState({});
   const { pathname } = useLocation();
@@ -34,7 +33,7 @@ function RecipeDetails() {
     .filter((item) => item[1] !== undefined)
     .map((measure) => measure[1]);
   return (
-    <div>
+    <div className="conteiner-recipe-details ">
       {
         pathname.includes('meals') ? (
           <div>
@@ -75,9 +74,9 @@ function RecipeDetails() {
                  picture-in-picture"
                  allowFullScreen
                />}
-            <CarouselMeals />
-            {/* <div className="carousel">
-              {recommendationMeals?.map((recipe, index) => (
+            {/* <CarouselDrinks /> */}
+            <div className="carousel">
+              {recommendationDrinks?.map((recipe, index) => (
                 <div
                   data-testid={ `${index}-recommendation-card` }
                   key={ index }
@@ -86,17 +85,17 @@ function RecipeDetails() {
                   <h6
                     data-testid={ `${index}-recommendation-title` }
                   >
-                    {recipe.strMeal}
+                    {recipe.strDrink}
                   </h6>
                   <div className="image">
                     <img
-                      src={ recipe.strMealThumb }
-                      alt={ recipe.strMeal }
+                      src={ recipe.strDrinkThumb }
+                      alt={ recipe.strDrink }
                     />
                   </div>
                 </div>
               ))}
-            </div> */}
+            </div>
             <button
               type="button"
               data-testid="start-recipe-btn"
@@ -133,20 +132,20 @@ function RecipeDetails() {
               </ul>
 
               <p data-testid="instructions">{mealsDetails.strInstructions}</p>
-              <CarouselDrinks />
-              {/* <div className="carousel">
-                {recommendationDrinks?.map((recipe, index) => (
+              {/* <CarouselMeals /> */}
+              <div className="carousel">
+                {recommendationMeals?.map((recipe, index) => (
                   <div
                     data-testid={ `${index}-recommendation-card` }
                     key={ index }
                   >
                     <h6 data-testid={ `${index}-recommendation-title` }>
-                      {recipe.strDrink}
+                      {recipe.strMeal}
                     </h6>
-                    <img src={ recipe.strDrinkThumb } alt={ recipe.strDrink } />
+                    <img src={ recipe.strMealThumb } alt={ recipe.strMeal } />
                   </div>
                 ))}
-              </div> */}
+              </div>
               <button
                 type="button"
                 data-testid="start-recipe-btn"

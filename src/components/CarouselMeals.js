@@ -12,7 +12,7 @@ function CarouselMeals() {
     <div>
       <Carousel>
         <Carousel.Item>
-          <div data-testid="0-recommendation-card">
+          <div className="cardCarousel" data-testid="0-recommendation-card">
             <h6 data-testid="0-recommendation-title">
               {recommendationMeals[0]?.strMeal}
             </h6>
@@ -21,7 +21,7 @@ function CarouselMeals() {
               alt={ recommendationMeals }
             />
           </div>
-          <div data-testid="1-recommendation-card">
+          <div className="cardCarousel" data-testid="1-recommendation-card">
             <h6 data-testid="1-recommendation-title">
               {recommendationMeals[1]?.strMeal}
             </h6>
@@ -32,7 +32,7 @@ function CarouselMeals() {
           </div>
         </Carousel.Item>
         <Carousel.Item>
-          <div data-testid="2-recommendation-card">
+          <div className="cardCarousel" data-testid="2-recommendation-card">
             <h6 data-testid="2-recommendation-title">
               {recommendationMeals[2]?.strMeal}
             </h6>
@@ -41,7 +41,7 @@ function CarouselMeals() {
               alt={ recommendationMeals }
             />
           </div>
-          <div data-testid="3-recommendation-card">
+          <div className="cardCarousel" data-testid="3-recommendation-card">
             <h6 data-testid="3-recommendation-title">
               {recommendationMeals[3]?.strMeal}
             </h6>
@@ -52,7 +52,7 @@ function CarouselMeals() {
           </div>
         </Carousel.Item>
         <Carousel.Item>
-          <div data-testid="4-recommendation-card">
+          <div className="cardCarousel" data-testid="4-recommendation-card">
             <h6 data-testid="4-recommendation-title">
               {recommendationMeals[4]?.strMeal}
             </h6>
@@ -61,7 +61,7 @@ function CarouselMeals() {
               alt={ recommendationMeals }
             />
           </div>
-          <div data-testid="5-recommendation-card">
+          <div className="cardCarousel" data-testid="5-recommendation-card">
             <h6 data-testid="5-recommendation-title">
               {recommendationMeals[5]?.strMeal}
             </h6>

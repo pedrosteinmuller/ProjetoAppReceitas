@@ -11,8 +11,8 @@ function CarouselDrinks() {
     <div>
       <Carousel>
         <Carousel.Item>
-          <div data-testid="0-recommendation-card">
-            <h6 data-testid="0-recommendation-title">
+          <div className="cardCarousel" data-testid="0-recommendation-card">
+            <h6 data-testid="1-recommendation-title">
               {recommendationDrinks[0]?.strDrink}
             </h6>
             <img
@@ -20,7 +20,7 @@ function CarouselDrinks() {
               alt={ recommendationDrinks }
             />
           </div>
-          <div data-testid="1-recommendation-card">
+          <div className="cardCarousel" data-testid="1-recommendation-card">
             <h6 data-testid="1-recommendation-title">
               {recommendationDrinks[1]?.strDrink}
             </h6>
@@ -31,7 +31,7 @@ function CarouselDrinks() {
           </div>
         </Carousel.Item>
         <Carousel.Item>
-          <div data-testid="2-recommendation-card">
+          <div className="cardCarousel" data-testid="2-recommendation-card">
             <h6 data-testid="2-recommendation-title">
               {recommendationDrinks[2]?.strDrink}
             </h6>
@@ -40,7 +40,7 @@ function CarouselDrinks() {
               alt={ recommendationDrinks }
             />
           </div>
-          <div data-testid="3-recommendation-card">
+          <div className="cardCarousel" data-testid="3-recommendation-card">
             <h6 data-testid="3-recommendation-title">
               {recommendationDrinks[3]?.strDrink}
             </h6>
@@ -51,7 +51,7 @@ function CarouselDrinks() {
           </div>
         </Carousel.Item>
         <Carousel.Item>
-          <div data-testid="4-recommendation-card">
+          <div className="cardCarousel" data-testid="4-recommendation-card">
             <h6 data-testid="4-recommendation-title">
               {recommendationDrinks[4]?.strDrink}
             </h6>
@@ -60,7 +60,7 @@ function CarouselDrinks() {
               alt={ recommendationDrinks }
             />
           </div>
-          <div data-testid="5-recommendation-card">
+          <div className="cardCarousel" data-testid="5-recommendation-card">
             <h6 data-testid="5-recommendation-title">
               {recommendationDrinks[5]?.strDrink}
             </h6>
