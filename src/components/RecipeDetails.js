@@ -1,18 +1,17 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useParams, useHistory } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import { fetchApiRecipesDetails } from '../services/fetchApi';
-import myContext from '../context/myContext';
 import '../css/RecipeDetails.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
 import BlackHeartIcon from '../images/blackHeartIcon.svg';
+import CarouselMeals from './CarouselMeals';
+import CarouselDrinks from './CarouselDrinks';
+import IngredientList from './IngredientList';
 
 function RecipeDetails() {
-  const { drinksData, mealsData } = useContext(myContext);
-  const SIX = 6;
-  const recommendationMeals = mealsData?.slice(0, SIX);
-  const recommendationDrinks = drinksData?.slice(0, SIX);
+  // const recommendationMeals = mealsData?.slice(0, SIX);
   const param = useParams();
   const [mealsDetails, setMealsDetails] = useState({});
   const [favoriteButton, setFavoriteButton] = useState(false);
@@ -29,23 +28,7 @@ function RecipeDetails() {
     fetchApiDetails();
     const favorite = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     setFavoriteButton(favorite.some((item) => item.id === param.id));
-    // const verifyId = Object.values(favorite).filter((e) => e.id === param.id);
-    // if (favoriteButton === false) {
-    //   setFavoriteButton(true);
-    // } else {
-    //   setFavoriteButton(false);
-    // }
   }, []);
-  const ingredientList = Object.entries(mealsDetails)
-    .filter((item) => item[0].includes('strIngredient') && item[1] !== '')
-    .filter((item) => item[1] !== null)
-    .map((ingredient) => ingredient[1]);
-  const measureList = Object.entries(mealsDetails)
-    .filter((item) => item[0].includes('strMeasure'))
-    .filter((item) => item[1] !== ' ')
-    .filter((item) => item[1] !== null)
-    .filter((item) => item[1] !== undefined)
-    .map((measure) => measure[1]);
 
   const favoriteRecipe = () => {
     const path = pathname.includes('meals') ? 'meal' : 'drink';
@@ -67,6 +50,11 @@ function RecipeDetails() {
     const favorite = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     localStorage.setItem('favoriteRecipes', JSON
       .stringify([...favorite, objFavorite]));
+    if (favoriteButton === false) {
+      setFavoriteButton(true);
+    } else {
+      setFavoriteButton(false);
+    }
   };
   const btnCopy = () => {
     copy(`http://localhost:3000${pathname}`);
@@ -84,15 +72,7 @@ function RecipeDetails() {
           />
           <h2 data-testid="recipe-title">{mealsDetails.strMeal}</h2>
           <h3 data-testid="recipe-category">{mealsDetails.strCategory}</h3>
-          <ul>
-            {ingredientList.map((ingredient, index) => (
-              <li
-                data-testid={ `${index}-ingredient-name-and-measure` }
-                key={ index }
-              >
-                {`${measureList[index] || ''} ${ingredient}`}
-              </li>))}
-          </ul>
+          <IngredientList />
           <p data-testid="instructions">{mealsDetails.strInstructions}</p>
           { pathname.includes('meals')
                && <iframe
@@ -108,25 +88,7 @@ function RecipeDetails() {
                  picture-in-picture"
                  allowFullScreen
                />}
-          <div className="carousel">
-            {recommendationDrinks?.map((recipe, index) => (
-              <div
-                data-testid={ `${index}-recommendation-card` }
-                key={ index }
-                className="card"
-              >
-                <h6 data-testid={ `${index}-recommendation-title` }>
-                  {recipe.strDrink}
-                </h6>
-                <div className="image">
-                  <img
-                    src={ recipe.strDrinkThumb }
-                    alt={ recipe.strDrink }
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
+          <CarouselDrinks />
           <button
             type="button"
             data-testid="start-recipe-btn"
@@ -176,29 +138,9 @@ function RecipeDetails() {
             />
             <h2 data-testid="recipe-title">{mealsDetails.strDrink}</h2>
             <p data-testid="recipe-category">{mealsDetails.strAlcoholic}</p>
-            <ul>
-              {ingredientList.map((ingredient, index) => (
-                <li
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                  key={ index }
-                >
-                  {`${measureList[index] || ''} ${ingredient}`}
-                </li>))}
-            </ul>
+            <IngredientList />
             <p data-testid="instructions">{mealsDetails.strInstructions}</p>
-            <div className="carousel">
-              {recommendationMeals?.map((recipe, index) => (
-                <div
-                  data-testid={ `${index}-recommendation-card` }
-                  key={ index }
-                >
-                  <h6 data-testid={ `${index}-recommendation-title` }>
-                    {recipe.strMeal}
-                  </h6>
-                  <img src={ recipe.strMealThumb } alt={ recipe.strMeal } />
-                </div>
-              ))}
-            </div>
+            <CarouselMeals />
             <button
               type="button"
               data-testid="start-recipe-btn"
