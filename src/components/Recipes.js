@@ -12,7 +12,6 @@ function Recipes({ verify }) {
   const five = 5;
   const mealsList = categoryFilterMeals.meals;
   const drinksList = categoryFilterDrink.drinks;
-  console.log(drinksData);
   return (
     <div className="container-big">
       {

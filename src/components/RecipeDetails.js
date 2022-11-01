@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useParams, useHistory } from 'react-router-dom';
+import copy from 'clipboard-copy';
 import { fetchApiRecipesDetails } from '../services/fetchApi';
 import myContext from '../context/myContext';
 import '../css/RecipeDetails.css';
@@ -7,12 +8,15 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 function RecipeDetails() {
   const { drinksData, mealsData } = useContext(myContext);
+  // const [favorite, setFavotire] = useState([]);
   const SIX = 6;
   const recommendationMeals = mealsData?.slice(0, SIX);
   const recommendationDrinks = drinksData?.slice(0, SIX);
   const param = useParams();
   const [mealsDetails, setMealsDetails] = useState({});
+  const [click, setClick] = useState(false);
   const { pathname } = useLocation();
+  const history = useHistory();
 
   useEffect(() => {
     const fetchApiDetails = async () => {
@@ -22,6 +26,7 @@ function RecipeDetails() {
     };
     fetchApiDetails();
   }, []);
+  console.log(mealsDetails);
   const ingredientList = Object.entries(mealsDetails)
     .filter((item) => item[0].includes('strIngredient') && item[1] !== '')
     .filter((item) => item[1] !== null)
@@ -32,6 +37,44 @@ function RecipeDetails() {
     .filter((item) => item[1] !== null)
     .filter((item) => item[1] !== undefined)
     .map((measure) => measure[1]);
+
+  const nationality = mealsData.strArea;
+  // const nationalityDrink = drinksData.strArea;
+
+  const favoriteMeal = () => {
+    const favorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favorite) {
+      const objFavorite = [...favorite, {
+        id: param.id,
+        type: 'meal',
+        nationality: nationality || '',
+        categoty: mealsDetails.strCategory || '',
+        alcoholicOrNot: mealsDetails.strAlcoholic || '',
+        name: mealsDetails.strMeal,
+        image: mealsDetails.strMealThumb,
+      }];
+      localStorage.setItem('favoriteRecipes', JSON.stringify(objFavorite) || []);
+    } else {
+      console.log(mealsData);
+      const objFavorite = [{
+        id: param.id,
+        type: 'meal',
+        nationality: nationality || '',
+        categoty: mealsDetails.strCategory || '',
+        alcoholicOrNot: mealsDetails.strAlcoholic || '',
+        name: mealsDetails.strMeal,
+        image: mealsDetails.strMealThumb,
+      }];
+      console.log();
+      localStorage.setItem('favoriteRecipes', JSON.stringify(objFavorite) || []);
+    }
+  };
+
+  const btnCopy = () => {
+    copy(`http://localhost:3000${pathname}`);
+    setClick(true);
+  };
+
   return (
     <div className="conteiner-recipe-details ">
       {
@@ -100,8 +143,30 @@ function RecipeDetails() {
               type="button"
               data-testid="start-recipe-btn"
               className="btnStartRecipe"
+              onClick={ () => history.push(`/meals/${param.id}/in-progress`) }
             >
               Start Recipe
+            </button>
+            <button
+              className="btnShare"
+              data-testid="share-btn"
+              type="button"
+              onClick={ btnCopy }
+            >
+              share
+
+            </button>
+            {
+              click && <span>Link copied!</span>
+            }
+            <br />
+            <button
+              className="btnShare"
+              data-testid="favorite-btn"
+              type="button"
+              onClick={ favoriteDrink }
+            >
+              favorito
             </button>
           </div>
         )
@@ -115,7 +180,7 @@ function RecipeDetails() {
               />
 
               <h2 data-testid="recipe-title">{mealsDetails.strDrink}</h2>
-              <p data-testid="recipe-category">{mealsDetails.strAlcoholic}</p>
+              <p data-testid="favorecipe-category">{mealsDetails.strAlcoholic}</p>
 
               <ul>
                 {
@@ -150,8 +215,30 @@ function RecipeDetails() {
                 type="button"
                 data-testid="start-recipe-btn"
                 className="btnStartRecipe"
+                onClick={ () => history.push(`/drinks/${param.id}/in-progress`) }
               >
                 Start Recipe
+              </button>
+              <button
+                className="btnShare"
+                data-testid="share-btn"
+                type="button"
+                onClick={ btnCopy }
+              >
+                share
+
+              </button>
+              {
+                click && <span>Link copied!</span>
+              }
+              <br />
+              <button
+                className="btnShare"
+                data-testid="favorite-btn"
+                type="button"
+                onClick={ favoriteMeal }
+              >
+                favorite
               </button>
             </div>
           )

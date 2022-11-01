@@ -23,4 +23,12 @@
   bottom: 0;
   padding: 20px;
   position: fixed;
+  right: 0;
+}
+
+.btnShare {
+  bottom: 0;
+  margin: 10px;
+  padding: 20px;
+  width: 160px;
 }
