@@ -5,7 +5,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 function CarouselMeals() {
   const { mealsData } = useContext(myContext);
-  console.log(mealsData);
   const SIX = 6;
   const recommendationMeals = mealsData?.slice(0, SIX);
   return (
