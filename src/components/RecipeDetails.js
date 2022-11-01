@@ -8,7 +8,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 function RecipeDetails() {
   const { drinksData, mealsData } = useContext(myContext);
-  // const [favorite, setFavotire] = useState([]);
   const SIX = 6;
   const recommendationMeals = mealsData?.slice(0, SIX);
   const recommendationDrinks = drinksData?.slice(0, SIX);
@@ -26,7 +25,6 @@ function RecipeDetails() {
     };
     fetchApiDetails();
   }, []);
-  console.log(mealsDetails);
   const ingredientList = Object.entries(mealsDetails)
     .filter((item) => item[0].includes('strIngredient') && item[1] !== '')
     .filter((item) => item[1] !== null)
@@ -38,36 +36,30 @@ function RecipeDetails() {
     .filter((item) => item[1] !== undefined)
     .map((measure) => measure[1]);
 
-  const nationality = mealsData.strArea;
-  // const nationalityDrink = drinksData.strArea;
-
   const favoriteMeal = () => {
-    const favorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (favorite) {
-      const objFavorite = [...favorite, {
-        id: param.id,
-        type: 'meal',
-        nationality: nationality || '',
-        categoty: mealsDetails.strCategory || '',
-        alcoholicOrNot: mealsDetails.strAlcoholic || '',
-        name: mealsDetails.strMeal,
-        image: mealsDetails.strMealThumb,
-      }];
-      localStorage.setItem('favoriteRecipes', JSON.stringify(objFavorite) || []);
-    } else {
-      console.log(mealsData);
-      const objFavorite = [{
-        id: param.id,
-        type: 'meal',
-        nationality: nationality || '',
-        categoty: mealsDetails.strCategory || '',
-        alcoholicOrNot: mealsDetails.strAlcoholic || '',
-        name: mealsDetails.strMeal,
-        image: mealsDetails.strMealThumb,
-      }];
-      console.log();
-      localStorage.setItem('favoriteRecipes', JSON.stringify(objFavorite) || []);
-    }
+    const path = pathname.includes('meals') ? 'meal' : 'drink';
+    // const alcool = pathname.includes('meals') ? '' : mealsDetails.strAlcoholic;
+    const productName = pathname
+      .includes('meals') ? mealsDetails.strMeal : mealsDetails.strDrink;
+    const productImage = pathname
+      .includes('meals') ? mealsDetails.strMealThumb : mealsDetails.strDrinkThumb;
+    const productNationality = pathname
+      .includes('meals') ? mealsDetails.strArea : '';
+    // const productCategory = pathname
+    //   .includes('meals') ? mealsDetails.strCategory : mealsDetails.strCategory;
+    const objFavorite = {
+      id: param.id,
+      type: path,
+      nationality: productNationality,
+      category: mealsDetails.strCategory,
+      alcoholicOrNot: mealsDetails.strAlcoholic || '',
+      name: productName,
+      image: productImage,
+    };
+    const favorite = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+
+    localStorage.setItem('favoriteRecipes', JSON
+      .stringify([...favorite, objFavorite]));
   };
 
   const btnCopy = () => {
@@ -117,7 +109,6 @@ function RecipeDetails() {
                  picture-in-picture"
                  allowFullScreen
                />}
-            {/* <CarouselDrinks /> */}
             <div className="carousel">
               {recommendationDrinks?.map((recipe, index) => (
                 <div
@@ -164,7 +155,7 @@ function RecipeDetails() {
               className="btnShare"
               data-testid="favorite-btn"
               type="button"
-              onClick={ favoriteDrink }
+              onClick={ favoriteMeal }
             >
               favorito
             </button>
@@ -180,7 +171,7 @@ function RecipeDetails() {
               />
 
               <h2 data-testid="recipe-title">{mealsDetails.strDrink}</h2>
-              <p data-testid="favorecipe-category">{mealsDetails.strAlcoholic}</p>
+              <p data-testid="recipe-category">{mealsDetails.strAlcoholic}</p>
 
               <ul>
                 {
