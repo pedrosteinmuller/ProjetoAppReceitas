@@ -13,6 +13,15 @@ function RecipeComponent({ recipeInProgress }) {
     .filter((item) => item[1] !== null)
     .filter((item) => item[1] !== undefined)
     .map((measure) => measure[1]);
+
+  const markCheckbox = (e) => {
+    const label = document.querySelectorAll('label[class=label]')[e];
+    if (label.style.textDecoration !== '') {
+      label.style.textDecoration = '';
+      return;
+    }
+    label.style.textDecoration = 'line-through solid rgb(0, 0, 0)';
+  };
   return (
     <>
       <h1>Meal In progress</h1>
@@ -52,20 +61,24 @@ function RecipeComponent({ recipeInProgress }) {
       {
         ingredientList?.map(
           (ingredient, index) => (
-            <div
-              key={ index }
-              data-testid={ `${index}-ingredient-step` }
-            >
-              {`${measureList[index] || ''} ${ingredient}`}
-
-              <input
-                type="checkbox"
-              />
+            <div key={ index }>
+              <label
+                htmlFor={ ingredient }
+                data-testid={ `${index}-ingredient-step` }
+                className="label"
+              >
+                {`${measureList[index] || ''} ${ingredient}`}
+                <input
+                  type="checkbox"
+                  id={ ingredient }
+                  value={ ingredient }
+                  onChange={ () => markCheckbox(index) }
+                />
+              </label>
             </div>
           ),
         )
       }
-
     </>
   );
 }
