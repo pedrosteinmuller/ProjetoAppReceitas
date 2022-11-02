@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { fetchApiRecipesDetails } from '../services/fetchApi';
+import RecipeComponent from './RecipeComponent';
 
 function RecipeInProgress() {
   const [recipeInProgress, setRecipeInProgress] = useState([]);
@@ -17,7 +18,7 @@ function RecipeInProgress() {
     fetchApiDetails();
   }, []);
   return (
-    <RecipeInProgress recipeInProgress={ recipeInProgress } />
+    <RecipeComponent recipeInProgress={ recipeInProgress } />
   );
 }
 
