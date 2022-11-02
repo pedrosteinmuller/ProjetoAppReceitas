@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useLocation, useParams } from 'react-router-dom';
+import copy from 'clipboard-copy';
+import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
+import BlackHeartIcon from '../images/blackHeartIcon.svg';
 
 function RecipeComponent({ recipeInProgress }) {
+  const { pathname } = useLocation();
+  const param = useParams();
+  const [favoriteButton, setFavoriteButton] = useState(false);
+  const [click, setClick] = useState(false);
+
   const ingredientList = Object.entries(recipeInProgress)
     .filter((item) => item[0].includes('strIngredient') && item[1] !== '')
     .filter((item) => item[1] !== null)
@@ -22,6 +31,44 @@ function RecipeComponent({ recipeInProgress }) {
     }
     label.style.textDecoration = 'line-through solid rgb(0, 0, 0)';
   };
+
+  useEffect(() => {
+    const favorite = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    setFavoriteButton(favorite.some((item) => item.id === param.id));
+  }, []);
+
+  const btnCopy = () => {
+    const path = pathname.includes('meals') ? 'meals' : 'drinks';
+    copy(`http://localhost:3000/${path}/${param.id}`);
+    setClick(true);
+  };
+
+  const favoriteRecipe = () => {
+    const path = pathname.includes('meals') ? 'meal' : 'drink';
+    const productName = pathname
+      .includes('meals') ? recipeInProgress.strMeal : recipeInProgress.strDrink;
+    const productImage = pathname
+      .includes('meals') ? recipeInProgress.strMealThumb : recipeInProgress.strDrinkThumb;
+    const productNationality = pathname
+      .includes('meals') ? recipeInProgress.strArea : '';
+    const objFavorite = {
+      id: param.id,
+      type: path,
+      nationality: productNationality,
+      category: recipeInProgress.strCategory,
+      alcoholicOrNot: recipeInProgress.strAlcoholic || '',
+      name: productName,
+      image: productImage,
+    };
+    const favorite = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    localStorage.setItem('favoriteRecipes', JSON
+      .stringify([...favorite, objFavorite]));
+    if (favoriteButton === false) {
+      setFavoriteButton(true);
+    } else {
+      setFavoriteButton(false);
+    }
+  };
   return (
     <>
       <h1>Meal In progress</h1>
@@ -35,17 +82,34 @@ function RecipeComponent({ recipeInProgress }) {
         alt={ recipeInProgress.strMeal || recipeInProgress.strDrink }
       />
       <button
-        type="button"
+        className="btnShare"
         data-testid="share-btn"
+        type="button"
+        onClick={ btnCopy }
       >
         share
       </button>
-      <button
-        type="button"
-        data-testid="favorite-btn"
-      >
-        favorite
-      </button>
+      {click && <span>Link copied!</span>}
+
+      {
+        favoriteButton ? (
+          <input
+            data-testid="favorite-btn"
+            type="image"
+            alt="blackHeartIcon"
+            onClick={ favoriteRecipe }
+            src={ BlackHeartIcon }
+          />
+        ) : (
+          <input
+            data-testid="favorite-btn"
+            type="image"
+            alt="whiteHeartIcon"
+            onClick={ favoriteRecipe }
+            src={ WhiteHeartIcon }
+          />
+        )
+      }
       <button
         type="button"
         data-testid="finish-recipe-btn"
