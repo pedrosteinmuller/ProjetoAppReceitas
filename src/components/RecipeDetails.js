@@ -15,6 +15,7 @@ function RecipeDetails() {
   const [mealsDetails, setMealsDetails] = useState({});
   const [favoriteButton, setFavoriteButton] = useState(false);
   const [click, setClick] = useState(false);
+  const [startRecipe/* , setstartRecipe */] = useState(true);
   const { pathname } = useLocation();
   const history = useHistory();
 
@@ -28,6 +29,19 @@ function RecipeDetails() {
     const favorite = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     setFavoriteButton(favorite.some((item) => item.id === param.id));
   }, []);
+
+  // const saveProgressRecipes = () => {
+  //   history.push(`/meals/${param.id}/in-progress`);
+
+  //   const objProgress = {
+  //     drinks: {
+  //       0: [],
+  //     },
+  //     meals: {
+  //       0: [],
+  //     },
+  //   };
+  // };
 
   const favoriteRecipe = () => {
     const path = pathname.includes('meals') ? 'meal' : 'drink';
@@ -94,7 +108,7 @@ function RecipeDetails() {
             className="btnStartRecipe"
             onClick={ () => history.push(`/meals/${param.id}/in-progress`) }
           >
-            Start Recipe
+            { startRecipe === false ? 'Start Recipe' : 'Continue Recipe' }
           </button>
           <button
             className="btnShare"
@@ -146,7 +160,7 @@ function RecipeDetails() {
               className="btnStartRecipe"
               onClick={ () => history.push(`/drinks/${param.id}/in-progress`) }
             >
-              Start Recipe
+              { startRecipe === false ? 'Start Recipe' : 'Continue Recipe' }
             </button>
             <button
               className="btnShare"
