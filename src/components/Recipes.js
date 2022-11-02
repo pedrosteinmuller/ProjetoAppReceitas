@@ -89,10 +89,9 @@ function Recipes({ verify }) {
               }
             </div>
             {drinksData?.map((drink, index) => index < MAX_LENGTH && (
-              <div className="itenscard">
+              <div key={ drink.idDrink } className="itenscard">
                 <div
                   data-testid={ `${index}-recipe-card` }
-                  key={ drink.idDrink }
                   className="main-content"
                 >
                   <Link to={ `/drinks/${drink.idDrink}` }>

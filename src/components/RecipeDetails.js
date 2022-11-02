@@ -11,7 +11,6 @@ import CarouselDrinks from './CarouselDrinks';
 import IngredientList from './IngredientList';
 
 function RecipeDetails() {
-  // const recommendationMeals = mealsData?.slice(0, SIX);
   const param = useParams();
   const [mealsDetails, setMealsDetails] = useState({});
   const [favoriteButton, setFavoriteButton] = useState(false);
