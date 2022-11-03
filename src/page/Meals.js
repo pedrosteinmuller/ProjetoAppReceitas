@@ -11,19 +11,19 @@ function Meals() {
   const MAX_LENGTH = 12;
   return (
     <div>
-      <Header verifyPage={ false } />
+      <Header verifyPage={false} />
       <div className="mealstitle">
         <h1 data-testid="page-title">Meals</h1>
       </div>
       {
         data?.map((meal, index) => index < MAX_LENGTH && (
           <CardRecipes
-            index={ index }
+            index={index}
             recipes="meals"
-            id={ meal.idMeal }
-            key={ meal.idMeal }
-            tag={ meal.strMeal }
-            img={ meal.strMealThumb }
+            id={meal.idMeal}
+            key={meal.idMeal}
+            tag={meal.strMeal}
+            img={meal.strMealThumb}
           />
         ))
       }
