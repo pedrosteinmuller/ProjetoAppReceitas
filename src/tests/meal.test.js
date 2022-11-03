@@ -3,19 +3,19 @@ import { screen, act, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWith';
 import App from '../App';
-import drinks from '../../cypress/mocks/drinks';
 import CardRecipes from '../components/CardRecipes';
+import meals from '../../cypress/mocks/meals';
 
 global.alert = jest.fn();
-beforeEach(() => {
-  global.fetch = jest.fn(async () => Promise.resolve({
-    json: async () => Promise.resolve(drinks),
-  }));
-});
 
 describe('Testa o componente CardMeals', () => {
+  beforeEach(() => {
+    global.fetch = jest.fn(async () => Promise.resolve({
+      json: async () => Promise.resolve(meals),
+    }));
+  });
   test('Se renderiza os cards na tela', async () => {
-    await act(async () => renderWithRouter(<App />, { initialEntries: ['/drinks'] }));
+    await act(async () => renderWithRouter(<App />, { initialEntries: ['/meals'] }));
     const card = await screen.findAllByTestId(/-card-img/i);
     expect(card.length).toBe(12);
   });
@@ -25,7 +25,7 @@ describe('Testa o componente CardMeals', () => {
     expect(screen.getByText('nome')).toBeInTheDocument();
   });
   test('Se o alert aparece na tela ao procurar receita indefinida', () => {
-    renderWithRouter(<App />, { initialEntries: ['/drinks'] });
+    renderWithRouter(<App />, { initialEntries: ['/meals'] });
     const iconSearch = screen.getByRole('img', { name: /search/i });
     userEvent.click(iconSearch);
     const btnSearch = screen.getByTestId('exec-search-btn');
@@ -34,7 +34,7 @@ describe('Testa o componente CardMeals', () => {
     expect(global.alert).toHaveBeenCalled();
   });
   test('testa a pagina de drinks', async () => {
-    renderWithRouter(<App />, { initialEntries: ['/drinks'] });
+    renderWithRouter(<App />, { initialEntries: ['/meals'] });
     const iconSearch = await screen.findByRole('img', { name: /search/i });
     userEvent.click(iconSearch);
 
@@ -47,16 +47,13 @@ describe('Testa o componente CardMeals', () => {
     const btnSearch = screen.getByTestId('exec-search-btn');
     userEvent.click(btnSearch);
 
-    const drink = await screen.findByTestId('0-card-img');
+    const meal = screen.findByText('corba');
 
-    expect(drink).toBeInTheDocument();
+    expect(meal).toBeInTheDocument();
   });
   test('Card recipes renderiza na pagina drinks', async () => {
     renderWithRouter(<App />, { initialEntries: ['/drinks'] });
     const iconSearch = await screen.findByRole('img', { name: /search/i });
     userEvent.click(iconSearch);
-
-    const cardDrinks = await screen.findAllByTestId(/0-card-img/i);
-    expect(cardDrinks.length).toBe(2);
   });
 });

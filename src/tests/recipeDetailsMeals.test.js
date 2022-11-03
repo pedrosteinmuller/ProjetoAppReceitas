@@ -59,7 +59,7 @@ describe('Testa o componente RecipesDetails', () => {
     const { pathname } = history.location;
     expect(pathname).toBe('/meals/52977');
 
-    const btnStart = screen.getByRole('button', { name: /start recipe/i });
+    const btnStart = screen.getByRole('button', { name: /continue/i });
     userEvent.click(btnStart);
 
     expect(pathname).toBe('/meals/52977');

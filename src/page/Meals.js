@@ -16,7 +16,7 @@ function Meals() {
         <h1 data-testid="page-title">Meals</h1>
       </div>
       {
-        data?.map((meal, index) => index < MAX_LENGTH && (
+        data?.slice(0, MAX_LENGTH).map((meal, index) => (
           <CardRecipes
             index={ index }
             recipes="meals"
