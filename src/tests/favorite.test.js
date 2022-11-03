@@ -1,6 +1,6 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
-// import userEvent from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWith';
 import App from '../App';
 
@@ -38,9 +38,26 @@ afterEach(() => {
 
 describe('Testa tela os filtros de categoria da página meals', () => {
   test('verifica se ao clicar nos filtros os elementos certos renderizam', async () => {
-    renderWithRouter(<App />, { initialEntries: ['/favoriteRecipes'] });
+    const { debug, history } = renderWithRouter(<App />, { initialEntries: ['/favorite-recipes'] });
+    console.log(history);
+    debug();
 
-    const blackHeart = await screen.findByAltText('blackHeartIcon');
-    expect(blackHeart).toBeInTheDocument();
+    const header = await screen.findByRole('heading', { name: /favorite recipes/i });
+    expect(header).toBeInTheDocument();
+
+    const spicy = await screen.findByRole('img', { name: /Spicy Arrabiata Penne/i });
+    expect(spicy).toBeInTheDocument();
+
+    const btnCopy = await screen.findByTestId('1-horizontal-share-btn');
+    expect(btnCopy).toBeInTheDocument();
+
+    userEvent.click(btnCopy);
+    expect(navigator.clipboard.writeText).toHaveBeenCalledTimes(1);
+
+    const btnCopy2 = await screen.findByTestId('0-horizontal-share-btn');
+    expect(btnCopy2).toBeInTheDocument();
+
+    userEvent.click(btnCopy2);
+    expect(navigator.clipboard.writeText).toHaveBeenCalledTimes(2);
   });
 });

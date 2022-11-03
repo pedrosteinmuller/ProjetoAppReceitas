@@ -20,7 +20,7 @@ afterEach(() => {
 
 describe('Testa o componente RecipesDetailsDrinks', () => {
   test('Se o componente renderiza na tela', async () => {
-    renderWithRouter(<App />, { initialEntries: ['/drinks'] });
+    const { debug } = renderWithRouter(<App />, { initialEntries: ['/drinks'] });
     const btnGG = await screen.findByRole('img', { name: /gg/i });
     expect(btnGG).toBeInTheDocument();
 
@@ -35,7 +35,15 @@ describe('Testa o componente RecipesDetailsDrinks', () => {
     const checkbox = await screen.findByRole('checkbox', { name: /2 1\/2 shots galliano/i });
     userEvent.click(checkbox);
     expect(checkbox).toBeInTheDocument();
-    // expect(checkbox).toHaveAttribute('style', 'line-through solid rgb(0, 0, 0)');
+    const galliano = await screen.findByText(/2 1\/2 shots galliano/i);
+    expect(galliano).toHaveAttribute('style', 'text-decoration: line-through solid rgb(0, 0, 0);');
+    debug();
+
+    userEvent.click(galliano);
+    expect(galliano).not.toHaveAttribute('style', null);
+
+    const ginger = await screen.findByTestId(/1-ingredient-step/i);
+    expect(ginger).not.toHaveAttribute('style', null);
 
     const copy = screen.getByRole('button', { name: /share/i });
     userEvent.click(copy);
