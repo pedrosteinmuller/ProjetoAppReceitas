@@ -63,7 +63,7 @@ describe('Testa o componente RecipesDetailsDrinks', () => {
 
     expect(navigator.clipboard.writeText).toHaveBeenCalledTimes(1);
 
-    const btnStart = screen.getByRole('button', { name: /start recipe/i });
+    const btnStart = screen.getByRole('button', { name: /continue/i });
     userEvent.click(btnStart);
 
     const { pathname } = history.location;
