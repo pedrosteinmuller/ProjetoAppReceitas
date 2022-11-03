@@ -8,6 +8,7 @@ function FavoriteRecipes() {
   const [favorites, setFavorites] = useState([]);
   const [click, setClick] = useState(false);
   // const [shareRecipe, setShareRecipe] = useState([]);
+
   useEffect(() => {
     setFavorites(JSON.parse(localStorage.getItem('favoriteRecipes')) || []);
   }, []);
@@ -20,20 +21,31 @@ function FavoriteRecipes() {
     }
     setClick(true);
   };
+
   return (
     <div>
       <Header verifyPage />
       <h1 data-testid="page-title">Favorite Recipes</h1>
       {favorites?.map((item, index) => (
         <div key={ item.id }>
-          <img
-            data-testid={ `${index}-horizontal-image` }
-            alt={ item.name }
-            src={ item.image }
-          />
-          <p data-testid={ `${index}-horizontal-name` }>{item.name}</p>
+
+          <a href={ `/${item.type}s/${item.id}` }>
+            <img
+              data-testid={ `${index}-horizontal-image` }
+              alt={ item.name }
+              src={ item.image }
+              width="100px"
+            />
+
+            <p
+              data-testid={ `${index}-horizontal-name` }
+            >
+              {item.name}
+            </p>
+          </a>
+
           <p data-testid={ `${index}-horizontal-top-text` }>
-            { item.type === 'drink'
+            {item.type === 'drink'
               ? item.alcoholicOrNot : `${item.nationality} - ${item.category}`}
           </p>
           <input
