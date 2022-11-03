@@ -16,7 +16,7 @@ function RecipeInProgress() {
       setRecipeInProgress(URL[0]);
     };
     fetchApiDetails();
-  }, []);
+  }, [param.id, pathname]);
   return (
     <RecipeComponent recipeInProgress={ recipeInProgress } />
   );
