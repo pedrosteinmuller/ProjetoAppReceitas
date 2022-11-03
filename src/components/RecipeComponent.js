@@ -4,12 +4,14 @@ import { useLocation, useParams } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
 import BlackHeartIcon from '../images/blackHeartIcon.svg';
+import lsInProgressRecipes from '../services/recipesLocalStorage';
 
 function RecipeComponent({ recipeInProgress }) {
   const { pathname } = useLocation();
   const param = useParams();
   const [favoriteButton, setFavoriteButton] = useState(false);
   const [click, setClick] = useState(false);
+  // const [checked, setChecked] = useState(true);
 
   const ingredientList = Object.entries(recipeInProgress)
     .filter((item) => item[0].includes('strIngredient') && item[1] !== '')
@@ -69,6 +71,13 @@ function RecipeComponent({ recipeInProgress }) {
       setFavoriteButton(false);
     }
   };
+
+  const getLsInfo = lsInProgressRecipes();
+
+  if (!Object.keys(getLsInfo.meals).includes(param.id)) {
+    getLsInfo.meals[param.id] = [];
+  }
+
   return (
     <>
       <h1>Meal In progress</h1>
@@ -113,6 +122,7 @@ function RecipeComponent({ recipeInProgress }) {
       <button
         type="button"
         data-testid="finish-recipe-btn"
+        // disabled={ isDisabled }
       >
         finish
       </button>
@@ -134,8 +144,8 @@ function RecipeComponent({ recipeInProgress }) {
                 {`${measureList[index] || ''} ${ingredient}`}
                 <input
                   type="checkbox"
-                  id={ ingredient }
                   value={ ingredient }
+                  // disabled={  }
                   onChange={ () => markCheckbox(index) }
                 />
               </label>
