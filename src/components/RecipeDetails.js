@@ -108,7 +108,7 @@ function RecipeDetails() {
             className="btnStartRecipe"
             onClick={ () => history.push(`/meals/${param.id}/in-progress`) }
           >
-            { startRecipe === false ? 'Start Recipe' : 'Continue Recipe' }
+            { startRecipe === false ? 'Continue Recipe' : 'Start Recipe'}
           </button>
           <button
             className="btnShare"

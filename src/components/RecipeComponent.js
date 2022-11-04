@@ -141,7 +141,7 @@ function RecipeComponent({ recipeInProgress }) {
       <button
         type="button"
         data-testid="finish-recipe-btn"
-        // disabled={ isDisabled }
+        // disabled={  }
       >
         finish
       </button>

@@ -23,6 +23,15 @@ const favoriteRecipes = [
     name: 'Aquamarine',
     image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
   },
+  {
+    id: 52977,
+    type: 'meal',
+    nationality: 'Turkish',
+    category: 'Side',
+    alcoholicOrNot: '',
+    name: 'Corba',
+    image: 'https://www.themealdb.com/images/media/meals/58oia61564916529.jpg',
+  },
 ];
 beforeEach(() => {
   localStorage.setItem('favoriteRecipes', JSON
@@ -59,5 +68,18 @@ describe('Testa tela os filtros de categoria da página meals', () => {
 
     userEvent.click(btnCopy2);
     expect(navigator.clipboard.writeText).toHaveBeenCalledTimes(2);
+  });
+  test('Verifica adição e removação dos favoritos', async () => {
+    renderWithRouter(<App />, { initialEntries: ['/favorite-recipes'] });
+
+    const btnCorba = await screen.findByRole('img', { name: /corba/i });
+    expect(btnCorba).toBeInTheDocument();
+
+    const removeBtn = await screen.findAllByAltText('blackHeartIcon');
+
+    userEvent.click(removeBtn[0]);
+
+    // const { pathname } = history.location;
+    // expect(pathname).toBe('/favorite-recipes');
   });
 });
