@@ -97,6 +97,9 @@ function RecipeComponent({ recipeInProgress }) {
     setLoading(!loading);
   };
 
+  // const favoriteLs = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  // console.log(favoriteLs);
+
   return (
     <>
       <h1>Meal In progress</h1>
@@ -141,7 +144,7 @@ function RecipeComponent({ recipeInProgress }) {
       <button
         type="button"
         data-testid="finish-recipe-btn"
-        // disabled={  }
+        // disabled={ ingredients.some((item) => item === favoriteLs.length && favoriteLs.length > 0) }
       >
         finish
       </button>
