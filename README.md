@@ -34,3 +34,22 @@ A base de dados é 2 APIs distintas, uma para comidas e outra para bebidas.
     - Definimos que se houvesse dificuldade traríamos para alguém do grupo e, persistindo essa dificuldade, procuraríamos ajuda na monitoria ou de outros colegas;
 - Desafios/Aprendizados:
   - Perceber como a comunicação influencia diretamente na organização, colaboração e para lidar com situações adversas. Neste projeto pude melhorar minhas habilidades como trabalho em equipe, liderança, resolução de problemas e desafios complexos, empatia, resiliência, e dentre outros.
+
+### Instruções
+
+- Para rodar a aplicação localmente, realize o clone do projeto e utilize os comandos a seguir para inicializar:
+
+```
+npm install // para instalar as dependências
+npm start // para iniciar a aplicação
+```
+
+- Para rodar os testes criados, os comando a seguir podem ser utilizados:
+
+```
+npm test
+ou
+npm run test-coverage
+```
+
+👨🏻‍💻 **Acessar:** _[Clique Aqui](https://projeto-app-receitas-nine.vercel.app/)_
